@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed | EventHub</title>
+    <style>
+        :root {
+            --netflix-red: #e50914;
+            --netflix-dark: #141414;
+            --netflix-dark-gray: #222;
+            --netflix-light-gray: #e5e5e5;
+            --netflix-white: #fff;
+        }
+
+        body {
+            font-family: "Netflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--netflix-light-gray);
+            margin: 0;
+            padding: 0;
+            background-color: var(--netflix-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #141414;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+
+
+nav .links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 12px;
+        font-weight: bold;
+        padding: 8px 8px;
+        border-radius: 4px;
+        transition: background-color 0.4s ease;
+        font-size: large;
+      }
+      nav .links a:hover {
+        background-color: #e50914;
+      }
+
+
+        .logo {
+            color: #e50914;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Netflix Sans', sans-serif;
+        }
+
+        .confirmation-container {
+            flex: 1;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .confirmation-card {
+            background-color: var(--netflix-dark-gray);
+            border-radius: 8px;
+            padding: 3rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-top: 4px solid var(--netflix-red);
+        }
+
+
+        .confirmation-icon {
+            color: #0d50ee;
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--netflix-white);
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+     
+
+        .event-details {
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+            border-left: 3px solid var(--netflix-red);
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 0.8rem;
+        }
+
+        .detail-label {
+            flex: 1;
+            font-weight: 600;
+            color: var(--netflix-light-gray);
+        }
+
+        .detail-value {
+            flex: 2;
+            color: var(--netflix-white);
+        }
+
+        .ticket-info {
+            margin-top: 2rem;
+        }
+
+        .ticket-type {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--netflix-red);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #f40612;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #777;
+            background-color: #000;
+            margin-top: auto;
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: rgba(20, 20, 20, 0.6);
+            border-radius: 8px;
+            border: 1px solid rgba(229, 9, 20, 0.3);
+        }
+
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        #qrcode {
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .ticket-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background-color: rgba(109, 109, 110, 0.7);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(109, 109, 110, 1);
+        }
+
+        @media (max-width: 768px) {
+            .confirmation-container {
+                padding: 1rem;
+            }
+            
+            .confirmation-card {
+                padding: 2rem 1rem;
+            }
+
+            .btn-secondary{
+              margin-left: 30px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+
+            .ticket-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 535px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Netflix+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- QR Code Library -->
+   
+    <!-- html2canvas for downloading ticket -->
+    
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/user/page" class="logo">EventHub</a>
+        <div class="links">
+            <!-- <a href="/events" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Back to Events</a> -->
+            <a href="/#home">Home</a>
+            <a href="/#about">About</a>
+            <a href="/#contact">Contact</a>
+
+        </div>
+    </nav>
+
+    <div class="confirmation-container">
+        <div class="confirmation-card" id="ticket-container">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1>Booking Confirmed!</h1>
+            <p class="confirmation-text">
+                Thank you for your booking. Your tickets have been reserved successfully. 
+                A confirmation email has been sent to <strong><%= userEmail %></strong> with your ticket details.
+            </p>
+
+            <div class="event-details">
+                <h3 style="color: var(--netflix-white); margin-top: 0; margin-bottom: 1.5rem;">
+                    <i class="fas fa-ticket-alt" style="color: var(--netflix-red); margin-right: 10px;"></i>
+                    Booking Summary
+                </h3>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Event:</div>
+                    <div class="detail-value"><%= concert.title %></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Tickets Booked:</div>
+                    <div class="detail-value"><%= quantity %></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Date:</div>
+                    <div class="detail-value"><%= concert.date.toDateString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></div>
+                </div>
+                
+                
+                <div class="detail-row">
+                    <div class="detail-label">Time:</div>
+                    <div class="detail-value">4:00 PM - 11:00 PM</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Venue:</div>
+                    <div class="detail-value"><%= concert.venue %></div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Booking Reference:</div>
+                    <div class="detail-value" id="bookingRef">EVT-<%= Math.floor(Math.random() * 1000000).toString().padStart(6, '0') %></div>
+                </div>
+            </div>
+
+            <!-- QR Code Section -->
+            <div class="qr-section">
+                <h3 style="color: var(--netflix-white); margin-top: 0;">
+                    <i class="fas fa-qrcode" style="color: var(--netflix-red); margin-right: 10px;"></i>
+                    Your Digital Ticket
+                </h3>
+                <p style="margin-bottom: 1.5rem;">Scan this QR code at the venue for entry</p>
+                    <img src="<%= qrImage %>" alt="QR Code" />
+                   
+                </div>
+            </div>
+
+            <div class="ticket-info">
+                <h3 style="color: var(--netflix-white); text-align: left; margin-bottom: 1rem;">
+                    <i class="fas fa-receipt" style="color: var(--netflix-red); margin-right: 10px;"></i>
+                    Ticket Details
+                </h3>
+                
+                <div style="background-color: rgba(20, 20, 20, 0.6); border-radius: 6px; overflow: hidden;">
+                    <div class="ticket-type">
+                        <span>General Admission (x <%= quantity %>)</span>
+                        <span>$<%= concert.price %></span>
+                    </div>
+                    <div class="ticket-type">
+                        <span>Service Fee</span>
+                        <span>$<%= serviceFee %></span>
+                    </div>
+                    <div class="ticket-type" style="font-weight: 600; color: var(--netflix-white); border-bottom: none;">
+                        <span>Total</span>
+                        <span><%= totalPrice %></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ticket-actions">
+                <a href="/events" class="btn">
+                    <i class="fas fa-calendar-alt"></i> View More Events
+                </a>
+                <a href="/concert/booking/pdf/<%= bookingId %>" class="btn btn-secondary" id="downloadTicket">
+                    <i class="fas fa-download"></i> Download Ticket
+                </a>
+                    
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; <%= new Date().getFullYear() %> EventHub. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Generate QR Code
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookingRef = document.getElementById('bookingRef').textContent;
+            const eventName = '<%= concert.title %>';
+            const qrData = `Event: ${eventName}\nBooking Ref: ${bookingRef}\nVenue: <%= concert.venue %>\nDate: <%= concert.date.toLocaleDateString() %>`;
+            
+            new QRCode(document.getElementById("qrcode"), {
+                text: qrData,
+                width: 150,
+                height: 150,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Download Ticket as Image
+            document.getElementById('downloadTicket').addEventListener('click', function() {
+                const ticketContainer = document.getElementById('ticket-container');
+                
+                html2canvas(ticketContainer, {
+                    scale: 2,
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#141414'
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `EventHub-Ticket-${bookingRef}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

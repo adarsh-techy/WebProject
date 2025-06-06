@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= str %></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Audiowide&family=Nosifer&family=Orbitron:wght@400..900&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD"
+      crossorigin="anonymous"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+      }
+
+      html,
+      body {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #000008;
+        color: #fff;
+      }
+
+      nav {
+        background-color: #141414;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        z-index: 999;
+        height: 90px;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+      }
+
+      nav > div:nth-child(2) {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      /* nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 0.5rem;
+        font-weight: bold;
+        transition: color 0.3s;
+            margin-left: 25px;
+        position: relative;
+        top: 0;
+        font-family: "Orbitron", sans-serif;
+        letter-spacing: 0.3px;
+        padding: -2px;
+      }
+
+      nav a:hover {
+        background-color: #e50914;
+        
+      } */
+
+      nav a {
+        /* color: #fff;
+    text-decoration: none;
+    margin-left: 12px;
+    font-weight: bold;
+    padding: 10px 8px;
+    border-radius: 4px;
+    transition: background-color 0.4s ease;
+    font-size: large; */
+        position: relative;
+        color: #fff;
+        text-decoration: none;
+        margin-left: 12px;
+        font-weight: bold;
+        padding: 10px 8px;
+        border-radius: 4px;
+        font-size: large;
+        overflow: hidden;
+        z-index: 1;
+        transition: color 0.4s ease;
+      }
+      nav a::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 0%;
+        background-color: #0d50ee;
+        z-index: -1;
+        transition: height 0.4s ease;
+        border-radius: 4px;
+      }
+
+      nav a:hover::before {
+        height: 100%;
+      }
+
+      /* nav a:hover {
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #e50914, 0 0 15px #e50914;
+} */
+
+      .profile-dropdown {
+        position: relative;
+        cursor: pointer;
+        margin-left: 0.5rem;
+      }
+
+      .profile-image {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #0d50ee;
+        transition: transform 0.3s ease;
+      }
+
+      .profile-icon {
+        font-size: 1.5rem;
+        color: var(--netflix-white);
+        transition: transform 0.3s ease;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 50px;
+        background-color: rgb(28, 28, 28);
+        min-width: 160px;
+        border-radius: 5px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        overflow: hidden;
+      }
+
+      .dropdown-content a {
+        display: block;
+        padding: 0.8rem 1rem;
+        color: var(--netflix-white);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: background-color 0.3s;
+      }
+
+      .dropdown-content:hover {
+        background-color: #0d50ee;
+      }
+
+      .dropdown-content.show {
+        display: block;
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .hero {
+        background: url("https://images.unsplash.com/photo-1518972559570-9e2060d37cc1")
+          center/cover no-repeat;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 4rem;
+        background-attachment: fixed;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        text-shadow: 2px 2px 8px #0000007e;
+        font-family: "Audiowide", sans-serif;
+        background: linear-gradient(100deg, #0400ff, #ff1c1c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+        max-width: 600px;
+        color: #ccc;
+        line-height: 1.4;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1.5s ease-out forwards;
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .btn {
+        font-family: "Orbitron", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: bold;
+        background-color: #0d50ee;
+        border: none;
+        color: white;
+        padding: 0.8rem 2rem;
+        margin-top: 2rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        letter-spacing: 1px;
+        word-spacing: 5px;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn:hover {
+        color: #0d50ee;
+        background-color: white;
+      }
+
+      .section {
+        padding: 4rem 2rem;
+      }
+
+      .homelogin {
+        background-color: #0d50ee;
+        padding: 7px;
+      }
+
+      .homelogin:hover {
+        background-color: rgb(255, 255, 255);
+      }
+
+      .book {
+        width: 100%;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        font-family: "Orbitron", sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        margin-top: auto;
+        letter-spacing: 0.2rem;
+      }
+
+      .book:hover {
+        transform: translateY(-2px);
+      }
+
+      .section h2 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+       
+        text-align: center;
+        font-family: "Kaushan Script", cursive;
+        /* -webkit-background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
+    background: linear-gradient(100deg, #0400ff, #ff1c1c);
+   background-clip: text;
+  color: transparent;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px 12px 0 0;
+      }
+
+      .card-content {
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .card-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #fff;
+      }
+
+      .card-content p {
+        color: #ccc;
+        margin-bottom: 1.5rem;
+      }
+
+      .book {
+        background-color: #e50914;
+      }
+
+      .card {
+        background-color: #1e1e1e;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(9, 49, 229, 0.2);
+      }
+
+      .about-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .about-card {
+        background-color: #1a1a1a;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
+
+      .about-card:hover {
+        transform: translateY(-5px);
+        background-color: #2c2c2c;
+      }
+
+      .about-card i {
+        font-size: 2.5rem;
+        color: #e50914;
+        margin-bottom: 1rem;
+      }
+
+      .about-card h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        color: #fff;
+      }
+
+      .about-card p {
+        font-size: 1rem;
+        color: #ccc;
+      }
+
+      .gig {
+        width: 200px;
+        top: 6px;
+        right: 30px;
+        position: relative;
+      }
+
+      /* .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #e50914;
+  } */
+
+      .card-content {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-content h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+        color: #fff;
+        font-family: "Orbitron", sans-serif;
+        text-align: center;
+      }
+
+      .card-content p {
+        color: #bbb;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+        font-size: 0.95rem;
+        flex-grow: 1;
+      }
+
+
+      .about-section h1{
+        background: linear-gradient(100deg, #0400ff, #ff1c1c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+                background-clip: text;
+
+      }
+
+
+      .see-more {
+        /* position: relative;
+  left: 630px;
+  top: 40px;
+  padding: 10px 20px;
+  background: #3b3b3b6d;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold; */
+        left: 610px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #2b6bff;
+        background-color: transparent;
+        border: 2px solid #ffffff;
+        border-radius: 25px;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+        overflow: hidden;
+        top: 40px;
+      }
+
+      .see-more i {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .see-more:hover {
+        background: #0d50ee;
+        color: #fff;
+      }
+
+      .see-more:hover i {
+        transform: translateX(6px) rotate(45deg);
+      }
+
+      .about,
+      .contact {
+        max-width: 800px;
+        margin: auto;
+        line-height: 1.6;
+      }
+
+      .contact form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .contact input,
+      .contact textarea {
+        padding: 1rem;
+        margin: 1rem 0;
+        border: none;
+        border-radius: 8px;
+        background-color: #222;
+        color: #fff;
+      }
+
+      footer {
+        background-color: #000;
+        text-align: center;
+        padding: 2rem;
+        color: #777;
+      }
+
+      .no-events {
+        text-align: center;
+        font-size: 1.5rem;
+        color: #ccc;
+      }
+
+      footer .logo-1,
+      .logo-2,
+      .logo-4 {
+        padding: 23px 12px;
+        border-radius: 80px;
+        font-weight: bold;
+        font-size: 1.6rem;
+        transition: background-color 0.4s ease;
+      }
+
+      footer .logo-3 {
+        padding: 9.6px 10.5px;
+        font-weight: bold;
+        font-size: 1.6rem;
+        border-radius: 80px;
+      }
+
+      footer .logo-1:hover {
+        background: radial-gradient(
+          circle at 30% 107%,
+          #fdf497 0%,
+          #fdf497 5%,
+          #fd5949 45%,
+          #d6249f 60%,
+          #285aeb 90%
+        );
+      }
+
+      footer .logo-2:hover {
+        color: #ffffff;
+        background-color: rgb(0, 145, 255);
+      }
+
+      footer .logo-4:hover {
+        background-color: #ffffff;
+        color: #000;
+      }
+      footer .logo-3:hover {
+        /* border: 2px green; */
+        background-color: rgb(22, 188, 83);
+        color: #000000;
+      }
+
+      .rotate {
+        margin-top: 40px;
+        height: 40%;
+        animation: spin 4s linear infinite;
+      }
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 992px) {
+        .cards {
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+
+        .see-more {
+          position: relative;
+          left: 220px;
+          top: 40px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        nav > div:nth-child(2) {
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+        .cards {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div>
+        <img class="gig" src="/images/gigforge_navbar_logo.png" alt="" />
+      </div>
+      <div>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#events">Events</a>
+
+        <% if (userEmail) { %>
+        <div class="profile-dropdown" onclick="toggleDropdown(this)">
+          <% if (typeof userProfileImage !== 'undefined' && userProfileImage &&
+          userProfileImage.data) { %>
+          <img
+            src="data:<%= userProfileImage.contentType %>;base64,<%= userProfileImage.data.toString('base64') %>"
+            class="profile-image"
+            alt="Profile Image"
+          />
+          <% } else { %>
+          <i class="fas fa-user-circle profile-icon"></i>
+          <% } %>
+
+          <div class="dropdown-content" id="dropdownContent">
+            <a href="/user/profile"><i class="fas fa-user"></i> My Profile</a>
+            <a href="/user/logout"
+              ><i class="fas fa-sign-out-alt"></i> Logout</a
+            >
+          </div>
+        </div>
+        <% } else { %>
+        <a class="homelogin" href="/user/login">
+          <i class="fas fa-user-circle"></i>
+        </a>
+        <% } %>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <h1 data-aos="fade-right">Feel the Beat Live...</h1>
+      <p data-aos="fade-up">
+        Book your spot for the hottest concerts happening near you. Dive into
+        the world of music like never before. Feel the energy, connect with your
+        favorite artists, and create unforgettable memories under the spotlight.
+        Whether you're into rock, pop, indie, or EDM, there's something
+        electrifying waiting for you. Secure your tickets now and be part of the
+        ultimate live music experience — because the stage is calling, and the
+        crowd is waiting.
+      </p>
+      <a href="#events"
+        ><button class="btn" data-aos="fade-up" data-aos-delay="300">
+          Explore Events
+        </button></a
+      >
+    </section>
+
+    <section class="section" id="events">
+  <h2 data-aos="fade-down">Upcoming Concerts</h2>
+  <div class="cards">
+    <% if (events.length === 0) { %>
+    <p class="no-events">No events available at the moment.</p>
+    <% } else { %>
+    <% events.forEach((event, index) => { %>
+    <% if (index < 8) { %>
+    <div class="card" data-aos="zoom-in">
+      <img
+        src="<% if (event.concertImage && event.concertImage.data && event.concertImage.contentType) { %>data:<%= event.concertImage.contentType %>;base64,<%= event.concertImage.data.toString('base64') %><% } else { %>/images/placeholder.jpg<% } %>"
+        alt="concert image"
+        loading="lazy"
+      />
+      <div class="card-content">
+        <h3><%= event.title %></h3>
+        <p><%= event.description.substring(0, 100) %>...</p>
+        <a href="/concert/<%= event._id %>">
+          <button class="book" type="button" style="background-color: #0d50ee;">BOOK</button>
+        </a>
+      </div>
+    </div>
+    <% } %>
+    <% }) %>
+    <% } %>
+  </div>
+  <a href="/events" class="see-more">See More Events<i class="bi bi-arrow-up-right"></i></a>
+</section>
+    <section
+      class="about-section"
+      id="about"
+      style="
+        background: linear-gradient(to right, #000000, #000000);
+        padding: 5rem 2rem;
+        color: white;
+        position: relative;
+      "
+    >
+      <div
+        data-aos="fade-right"
+        data-aos-duration="1000"
+        style="
+          max-width: 1500px;
+          margin: auto;
+          text-align: center;
+          backdrop-filter: blur(10px);
+          background: #111;
+          border-radius: 20px;
+          padding: 3rem 2rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 0 30px rgba(255, 0, 0, 0.049);
+        "
+      >
+        <h1
+          data-aos="fade-right"
+          data-aos-delay="200"
+          style="
+            font-size: 3rem;
+            font-family: 'Kaushan Script', cursive;
+            
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+          "
+        >
+          ⚡ About GigForge
+        </h1>
+
+        <div
+          data-aos="fade-right"
+          data-aos-delay="400"
+          style="
+            width: 170px;
+            height: 5px;
+            background: linear-gradient(to right, #ff3864, #6c5ce7);
+            margin: 0 auto 2rem auto;
+            border-radius: 10px;
+          "
+        ></div>
+
+        <p
+          data-aos="fade-right"
+          data-aos-delay="600"
+          style="
+            font-size: 1.2rem;
+            font-family: 'Cascadia Mono', monospace;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #f0f0f0;
+          "
+        >
+          Welcome to <strong>GigForge</strong>, the heartbeat of India’s
+          underground and mainstream concert culture...
+        </p>
+
+        <div
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+          "
+        >
+          <div
+            data-aos="fade-right"
+            data-aos-delay="700"
+            style="
+              flex: 1 1 250px;
+              background: rgba(255, 255, 255, 0.03);
+              padding: 1.5rem;
+              border-radius: 15px;
+              border: 1px solid rgba(255, 255, 255, 0.08);
+            "
+          >
+            <h3 style="color: #f7f451; font-size: 1.4rem; margin-bottom: 1rem">
+              🎟 Seamless Booking
+            </h3>
+            <p style="color: #ccc; font-size: 1rem">
+              Reserve tickets in seconds, no hassle — just vibes.
+            </p>
+          </div>
+
+          <div
+            data-aos="fade-right"
+            data-aos-delay="900"
+            style="
+              flex: 1 1 250px;
+              background: rgba(255, 255, 255, 0.03);
+              padding: 1.5rem;
+              border-radius: 15px;
+              border: 1px solid rgba(255, 255, 255, 0.08);
+            "
+          >
+            <h3 style="color: #70a1ff; font-size: 1.4rem; margin-bottom: 1rem">
+              🎧 Discover Artists
+            </h3>
+            <p style="color: #ccc; font-size: 1rem">
+              From indie underground to global icons — find your sound.
+            </p>
+          </div>
+
+          <div
+            data-aos="fade-right"
+            data-aos-delay="1100"
+            style="
+              flex: 1 1 250px;
+              background: rgba(255, 255, 255, 0.03);
+              padding: 1.5rem;
+              border-radius: 15px;
+              border: 1px solid rgba(255, 255, 255, 0.08);
+            "
+          >
+            <h3 style="color: #32ff7e; font-size: 1.4rem; margin-bottom: 1rem">
+              🌍 Anywhere, Anytime
+            </h3>
+            <p style="color: #ccc; font-size: 1rem">
+              Concerts across cities, at your fingertips 24/7.
+            </p>
+          </div>
+        </div>
+        <img
+          class="rotate"
+          src="https://www.mindinventory.com/img/case-study-details/movie-ticket-booking-app/book-tickets.svg"
+          alt="circle"
+        />
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <h2 data-aos="fade-left">Contact Us</h2>
+      <div class="contact" data-aos="fade-up">
+        <form>
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <textarea
+            rows="5"
+            name="message"
+            placeholder="Your Message"
+            required
+          ></textarea>
+          <button class="btn" type="submit" id="submitBtn">Send Message</button>
+          <div id="formResponse" class="mt-3 text-center"></div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div style="margin-bottom: 1rem">
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          style="color: #fff; margin: 0 0.5rem"
+          ><i class="fab fa-instagram fa-lg logo-1"></i
+        ></a>
+
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          style="color: #fff; margin: 0 0.5rem"
+          ><i class="fab fa-linkedin fa-lg logo-2"></i
+        ></a>
+
+        <a
+          href="https://github.com"
+          target="_blank"
+          style="color: #fff; margin: 0 0.5rem"
+          ><i class="fab fa-github fa-lg logo-4"></i
+        ></a>
+
+        <a
+          href="https://spotify.com"
+          target="_blank"
+          style="color: #fff; margin: 0 0.5rem"
+          ><i class="bi bi-spotify fa-lg logo-3"></i>
+        </a>
+      </div>
+      &copy; 2025 ConcertVerse. All Rights Reserved.
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+
+      function toggleDropdown(element) {
+        const dropdownContent = element.querySelector(".dropdown-content");
+        dropdownContent.classList.toggle("show");
+      }
+
+      const form = document.getElementById("contactForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const responseDiv = document.getElementById("formResponse");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+        responseDiv.textContent = "";
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch("/contact", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(Object.fromEntries(formData)),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            responseDiv.textContent = "Message sent successfully!";
+            responseDiv.style.color = "#4CAF50";
+            form.reset();
+          } else {
+            responseDiv.textContent = result.error || "Validation failed";
+            responseDiv.style.color = "#F44336";
+          }
+        } catch (error) {
+          responseDiv.textContent = "Network error. Please try again.";
+          responseDiv.style.color = "#F44336";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Send Message";
+        }
+      });
+    </script>
+  </body>
+</html>

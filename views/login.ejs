@@ -1,0 +1,100 @@
+<% title = 'Login' %>
+<style>
+
+body{
+    background-color: #121212;
+}
+
+  h1 {
+    font-size: 50px;
+    margin-bottom: 60px;
+    text-align: center;
+    color: #ffffff;
+    padding-top: 40px;
+  }
+
+  form {
+    max-width: 380px;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #201f1f;
+    /* border: 1px solid #ddd; */
+    border-radius: 5px;
+    height: 295px;
+
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #ffffff;
+    height: 8px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 50px;
+    border: 1px solid #0d50ee;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #111010;
+    color: aliceblue;
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #0d50ee;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #073399;
+  }
+
+  div[style="color: red"] {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  div[style="color: red"] ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  div[style="color: red"] li {
+    margin-bottom: 5px;
+  }
+</style>
+<h1>Login</h1>
+<form action="/admin/login" method="post">
+  <label>Email</label><br />
+  <input type="text" name="email" /><br />
+  <label>Password</label><br />
+  <input type="password" name="password" /><br />
+  <input type="submit" value="Login" />
+</form>
+<!-- for showing the validations -->
+<% if (errors && errors.length > 0) { %>
+<div style="color: red">
+  <ul>
+    <% errors.forEach(function(error) { %>
+    <li><%= error.msg %></li>
+    <% }); %>
+  </ul>
+</div>
+<% } %> <% if (message) { %>
+<div style="color: red">
+  <ul>
+    <li><%= message %></li>
+  </ul>
+</div>
+<% } %>

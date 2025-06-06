@@ -1,0 +1,86 @@
+<style>
+
+body{
+   font-family: "Helvetica Neue", sans-serif;
+    margin: 0;
+    background-color: #121212;
+    color: #fff;
+}
+  .form-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #181818;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    font-family: "Helvetica Neue", sans-serif;
+    color: #fff;
+  }
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2262f7;
+    font-weight: bold;
+    font-size: 1.8rem;
+  }
+  .form-container input,
+  .form-container button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: none;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+  .form-container input {
+    background-color: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+  }
+  .form-container input::placeholder {
+    color: #888;
+  }
+  .form-container button {
+    background-color: #0d50ee;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .form-container button:hover {
+    background-color: #043cbe;
+  }
+  .form-container ul {
+    padding: 0;
+    list-style: none;
+    color: #ff4e4e;
+    font-size: 0.9rem;
+  }
+  .form-container li {
+    margin-bottom: 5px;
+  }
+</style>
+
+<div class="form-container">
+  <h2>Concert Form</h2>
+  <form method="POST" action="<%= formAction %>" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="Concert Title" value="<%= concert.title || '' %>" />
+    <input type="text" name="name" placeholder="Performer Name" value="<%= concert.name || '' %>" />
+    <% let formattedDate = ''; if (concert.date) { const d = new Date(concert.date); if (!isNaN(d)) { formattedDate = d.toISOString().slice(0, 10); } } %>
+    <input type="date" name="date" value="<%= formattedDate %>" />
+    <input type="text" name="venue" placeholder="Venue" value="<%= concert.venue || '' %>" />
+    <input type="number" name="price" placeholder="Price" value="<%= concert.price || '' %>" step="any" pattern="^\d+(\.\d{1,2})?$" />
+    <input type="number" name="availableTickets" placeholder="Available Tickets" value="<%= concert.availableTickets || '' %>" />
+    <input type="file" name="concertImage" accept="image/*" />
+    <input type="text" name="description" placeholder="Description" value="<%= concert.description || '' %>" required />
+    <button type="submit">Save</button>
+  </form>
+  <% if (errors) { %>
+  <ul>
+    <% errors.forEach(error => { %>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
+</div>

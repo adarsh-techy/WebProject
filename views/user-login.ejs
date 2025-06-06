@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Login</title>
+  <link rel="stylesheet" href="/styles.css" />
+
+<style>
+    /* Netflix-style dark login page */
+body {
+
+    background-color: #121212;
+  color: #fff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  margin: 0;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+form {
+  background-color: #222222eb;
+  padding: 2rem 3rem;
+  border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+input[type="email"],
+input[type="password"] {
+  background-color: #333;
+    border: 1px solid #0d50ee;
+  padding: 12px 15px;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  background-color: #444;
+  outline: none;
+}
+
+button {
+  background-color: #0d50ee;
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #043ab9;
+}
+
+p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+p a {
+  color: #3b73f8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+p[style*="color: red;"] {
+  background-color: #b00020;
+  padding: 0.7rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+</style>
+
+
+</head>
+<body>
+  <h2>User Login</h2>
+  <% if (error) { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
+  <form method="POST" action="/user/login">
+    <label>Email:</label>
+    <input type="email" name="email" required /><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" required /><br>
+
+    <button type="submit">Login</button>
+  </form>
+  <p>Don't have an account? <a href="/user/register">Register here</a></p>
+</body>
+</html>

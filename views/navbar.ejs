@@ -1,0 +1,28 @@
+<nav>
+  <a href="/signup">signup</a>
+  <a href="/about">About Us</a>
+  <a href="/contactus">Contact Us</a>
+  <a href="/contactus/form">Contact Us Form</a>
+  <a href="/login">Admin Login</a>
+
+
+<% if (user) { %>
+    <div class="dropdown" style="display: inline-block; position: relative;">
+      <a href="#" class="dropdown-toggle"><%= userEmail %> ⬇️</a>
+      <div class="dropdown-menu" style="display: none; position: absolute; background: #fff; border: 1px solid #ccc;">
+        <a href="/user/logout">Logout</a>
+        
+      </div>
+    </div>
+    <script>
+      document.querySelector('.dropdown-toggle').addEventListener('click', function (e) {
+        e.preventDefault();
+        const menu = document.querySelector('.dropdown-menu');
+        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+      });
+    </script>
+  <% } else { %>
+    <a href="/user/register">Register</a>
+    <a href="/user/login">Login</a>
+  <% } %>
+</nav>

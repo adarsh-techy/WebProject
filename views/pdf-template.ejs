@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EventHub Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #e5e5e5;
+            background-color: #141414;
+            margin: 0;
+            padding: 20px;
+        }
+        .ticket-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #222;
+            border-radius: 8px;
+            padding: 30px;
+            border-top: 4px solid #e50914;
+        }
+        h1 {
+            font-size: 24px;
+            color: #fff;
+            text-align: center;
+        }
+        .event-details {
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 3px solid #e50914;
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        .detail-label {
+            flex: 1;
+            font-weight: 600;
+            color: #e5e5e5;
+        }
+        .detail-value {
+            flex: 2;
+            color: #fff;
+        }
+        .qr-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .ticket-info {
+            margin-top: 20px;
+        }
+        .ticket-type {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket-container">
+        <h1>EventHub Ticket</h1>
+        <div class="event-details">
+            <h3 style="color: #fff; margin: 0 0 15px 0;">Booking Summary</h3>
+            <div class="detail-row">
+                <div class="detail-label">Event:</div>
+                <div class="detail-value"><%= concert.title %></div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Tickets Booked:</div>
+                <div class="detail-value"><%= booking.quantity %></div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Date:</div>
+                <div class="detail-value"><%= concert.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Time:</div>
+                <div class="detail-value">4:00 PM - 11:00 PM</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Venue:</div>
+                <div class="detail-value"><%= concert.venue %></div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Booking Reference:</div>
+                <div class="detail-value"><%= booking._id %></div>
+            </div>
+        </div>
+
+        <div class="qr-section">
+            <h3 style="color: #fff;">Your Digital Ticket</h3>
+            <p>Scan this QR code at the venue for entry</p>
+            <img src="<%= qrImage %>" alt="QR Code" style="width: 150px; height: 150px;" />
+        </div>
+
+        <div class="ticket-info">
+            <h3 style="color: #fff;">Ticket Details</h3>
+            <div style="background-color: rgba(20, 20, 20, 0.6); border-radius: 6px;">
+                <div class="ticket-type">
+                    <span>General Admission (x <%= booking.quantity %>)</span>
+                    <span>$<%= concert.price %></span>
+                </div>
+                <div class="ticket-type">
+                    <span>Service Fee</span>
+                    <span>$<%= booking.serviceFee || 5.00 %></span>
+                </div>
+                <div class="ticket-type" style="font-weight: 600; color: #fff;">
+                    <span>Total</span>
+                    <span>$<%= booking.totalPrice %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
